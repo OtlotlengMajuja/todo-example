@@ -1,6 +1,6 @@
 // @ts-check
 
-import { state } from "./state.js";
+import { state, Task } from "./state.js";
 
 /**
  * 
@@ -47,7 +47,15 @@ const addTaskToHtml = (id) => {
     list.appendChild(preview);
 };
 
+/**
+ * 
+ * @param {string} id 
+ * @param {Task} changes 
+ */
 const updateHtmlTask = (id, changes) => { };
 
-addTaskToHtml("test;")
-addTaskToHtml("test;")
+window.addEventListener('error', () => {
+    document.body.innerHTML = "Something went wrong. Please refresh.";
+});
+
+addTaskToHtml("test;");
