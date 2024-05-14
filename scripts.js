@@ -3,19 +3,17 @@
 import { state } from "./state.js";
 
 const addTaskToHtml = () => {
+    const list = document.querySelector('[data-list]');
+    const isHtmlElement = list instanceof HTMLElement;
 
-};
-const list = document.querySelector('[data-list]');
-const isHtmlElement = list instanceof HTMLElement;
+    if (!isHtmlElement) {
+        throw new Error('"data-list" attribute not found in HTML');
+    };
 
-if (!isHtmlElement) {
-    throw new Error('"data-list" attribute not found in HTML');
-};
+    const preview = document.createElement('li');
+    preview.className = "task";
 
-const preview = document.createElement('li');
-preview.className = "task";
-
-preview.innerHTML = /* html */ `
+    preview.innerHTML = /* html */ `
     <label class="task__check">
         <input class="task__input" type="checkbox" />
         </label>
@@ -33,4 +31,5 @@ preview.innerHTML = /* html */ `
     </label>
 `;
 
-list.appendChild(preview);
+    list.appendChild(preview);
+};
