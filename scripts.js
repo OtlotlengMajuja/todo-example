@@ -2,7 +2,15 @@
 
 import { state } from "./state.js";
 
-const addTaskToHtml = () => {
+/**
+ * 
+ * @param {string} id 
+ */
+
+const addTaskToHtml = (id) => {
+    const isExisting = document.querySelector('[data-task="${}"]');
+    if (isExisting) throw new Error('Task with that ID already added')
+
     const list = document.querySelector('[data-list]');
     const isHtmlElement = list instanceof HTMLElement;
 
@@ -12,12 +20,13 @@ const addTaskToHtml = () => {
 
     const preview = document.createElement('li');
     preview.className = "task";
+    preview.dataset.task = id;
 
     preview.innerHTML = /* html */ `
     <label class="task__check">
         <input class="task__input" type="checkbox" disabled/>
         </label>
-        <button class="task__title"></button>
+        <button class="task__title" disabled></button>
         <label class="task__check">
             <svg
             class="task__icon"
@@ -26,7 +35,10 @@ const addTaskToHtml = () => {
             style="display: none"
             >
             <path
-                d="M253 961q-40.212 0-67.606-27.1Q158 906.8 158 867V314h-58v-94h231v-48h297v48h232v94h-58v553q0 39.05-27.769 66.525Q746.463 961 707 961H253Zm454-647H253v553h454V314ZM354 789h77V390h-77v399Zm175 0h78V390h-78v399ZM253 314v553-553Z"
+                d="M253 961q-40.212 0-67.606-27.1Q158 906.8 158
+                867V314h-58v-94h231v-48h297v48h232v94h-58v553q0 39.05-27.769
+                66.525Q746.463 961 707 961H253Zm454-647H253v553h454V314ZM354
+                789h77V390h-77v399Zm175 0h78V390h-78v399ZM253 314v553-553Z"
             ></path>
         </svg>
     </label>
@@ -34,3 +46,8 @@ const addTaskToHtml = () => {
 
     list.appendChild(preview);
 };
+
+const updateHtmlTask = (id, changes) => { };
+
+addTaskToHtml("test;")
+addTaskToHtml("test;")
