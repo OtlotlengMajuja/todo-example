@@ -50,7 +50,7 @@ const addTaskToHtml = (id) => {
 /**
  * 
  * @param {string} id 
- * @param {Task} changes 
+ * @param {Partial<Pick<Task, 'completed' | 'due' | 'title' | 'urgency'>} changes 
  */
 const updateHtmlTask = (id, changes) => { };
 
@@ -58,4 +58,5 @@ window.addEventListener('error', () => {
     document.body.innerHTML = "Something went wrong. Please refresh.";
 });
 
-addTaskToHtml("test;");
+addTaskToHtml("test");
+updateHtmlTask("test", { title: "Wash the dog", });
