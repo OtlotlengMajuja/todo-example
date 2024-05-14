@@ -2,21 +2,34 @@
 
 import { state, Task } from "./state.js";
 
+
+/**
+ * 
+ * @param {string} dataAttr 
+ * @param {string} [value] 
+ */
+const getHtml = (dataAttr, value) => {
+    const selector = value ? `data-${dataAttr}="${value}"` : `data-${dataAttr}`;
+    const element = document.querySelector(selector);
+    const isHtmlElement = element instanceof HTMLElement;
+
+    if (!isHtmlElement) {
+        throw new Error('${selector} attribute not found in HTML');
+    }
+
+    return element;
+};
+
 /**
  * 
  * @param {string} id 
  */
 
 const addTaskToHtml = (id) => {
-    const isExisting = document.querySelector('[data-task="${}"]');
+    const isExisting = getHtml("task", id);
     if (isExisting) throw new Error('Task with that ID already added')
 
-    const list = document.querySelector('[data-list]');
-    const isHtmlElement = list instanceof HTMLElement;
-
-    if (!isHtmlElement) {
-        throw new Error('"data-list" attribute not found in HTML');
-    };
+    const list = getHtml("list");
 
     const preview = document.createElement('li');
     preview.className = "task";
@@ -47,12 +60,6 @@ const addTaskToHtml = (id) => {
     list.appendChild(preview);
 };
 
-/**
- * 
- * @param {string} id 
- * @param {Partial<Pick<Task, 'completed' | 'due' | 'title' | 'urgency'>} changes 
- */
-const updateHtmlTask = (id, changes) => { };
 
 window.addEventListener('error', () => {
     document.body.innerHTML = "Something went wrong. Please refresh.";
